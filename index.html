@@ -44,7 +44,6 @@
             color: #f4f4f5;
             -webkit-tap-highlight-color: transparent;
         }
-        /* Custom animations */
         @keyframes scan {
             0% { top: 0%; }
             50% { top: 100%; }
@@ -53,7 +52,6 @@
         .animate-scan {
             animation: scan 1.8s ease-in-out infinite;
         }
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 4px;
         }
@@ -62,7 +60,7 @@
             border-radius: 4px;
         }
 
-        /* Light Theme overrides */
+        /* Light Mode Styles */
         body.light-mode {
             background-color: #f4f4f5 !important;
             color: #18181b !important;
@@ -111,7 +109,6 @@
         body.light-mode .border-zinc-700 {
             border-color: #e4e4e7 !important;
         }
-
         body.light-mode .custom-select-menu {
             background-color: #ffffff !important;
             border-color: #e4e4e7 !important;
@@ -122,12 +119,8 @@
             background-color: #f4f4f5 !important;
             color: #006FEE !important;
         }
-
-        #zxingVideo {
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: cover !important;
-            border-radius: 1.25rem;
+        body.light-mode ::-webkit-scrollbar-thumb {
+            background: #e4e4e7;
         }
 
               body.light-mode {
@@ -147,7 +140,14 @@
                                                                                                                 }
               }
 
-        /* Animación de gota de agua / onda al tocar la pantalla */
+        #zxingVideo {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            border-radius: 1.25rem;
+        }
+
+        /* Water Ripple Effect */
         @keyframes rippleAnimation {
             0% {
                 width: 0px;
@@ -209,7 +209,7 @@
     <main class="flex-1 overflow-y-auto p-4 max-w-md mx-auto w-full" id="mainContainer">
         <div id="productList" class="space-y-3"></div>
 
-        <!-- Controles de Paginación -->
+        <!-- Pagination -->
         <div id="paginationControls" class="hidden mt-4 flex items-center justify-between gap-2 border-t border-zinc-800/60 pt-4"></div>
 
         <!-- Empty State -->
@@ -226,7 +226,7 @@
         </div>
     </main>
 
-    <!-- Floating Action Button -->
+    <!-- Floating Add Button -->
     <div class="fixed bottom-6 right-6 z-20">
         <button onclick="openFormModal()" class="w-14 h-14 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl shadow-2xl shadow-blue-600/50 flex items-center justify-center text-3xl active:scale-90 transition transform border border-blue-400/30" title="Agregar producto">
             <iconify-icon icon="solar:add-circle-bold" width="30"></iconify-icon>
@@ -237,7 +237,6 @@
     <div id="formModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-center items-end sm:items-center opacity-0 pointer-events-none transition-opacity duration-200">
         <div id="formContainer" class="bg-zinc-900 border border-zinc-800 w-full max-w-md max-h-[90dvh] rounded-t-[28px] sm:rounded-2xl flex flex-col transform translate-y-full sm:translate-y-0 sm:scale-95 transition-transform duration-200 shadow-2xl overflow-hidden">
             
-            <!-- Header Modal -->
             <div class="px-5 py-4 border-b border-zinc-800/80 flex justify-between items-center bg-zinc-900">
                 <div class="flex items-center gap-2">
                     <div id="modalIconContainer" class="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center">
@@ -250,7 +249,6 @@
                 </button>
             </div>
 
-            <!-- Body Modal -->
             <div class="flex-1 overflow-y-auto p-5 space-y-4 text-xs">
                 <form id="productForm" onsubmit="event.preventDefault(); saveProduct();" class="space-y-4">
                     <input type="hidden" id="productId">
@@ -347,7 +345,6 @@
                 </form>
             </div>
 
-            <!-- Footer Modal -->
             <div class="p-4 border-t border-zinc-800 bg-zinc-900">
                 <button type="button" onclick="saveProduct()" class="w-full py-3 bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-semibold rounded-xl shadow-lg shadow-blue-600/30 transition flex items-center justify-center gap-2 text-sm">
                     <iconify-icon icon="solar:diskette-bold" width="20"></iconify-icon>
@@ -357,7 +354,7 @@
         </div>
     </div>
 
-    <!-- Modal: Agregar Nueva Categoría -->
+    <!-- Modal: Nueva Categoría -->
     <div id="addCategoryModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
         <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 max-w-xs w-full shadow-2xl text-left transform transition-all">
             <div class="flex justify-between items-center mb-3">
@@ -384,7 +381,7 @@
         </div>
     </div>
 
-    <!-- Modal: Escáner de Cámara con HD y BarcodeDetector Integrado -->
+    <!-- Modal: Escáner de Cámara con Anillo Segmentado y Tap-to-Scan -->
     <div id="scannerModal" class="fixed inset-0 z-50 bg-black flex flex-col hidden">
         <div class="p-4 flex justify-between items-center z-10 bg-gradient-to-b from-black/90 to-transparent">
             <div class="flex items-center gap-2 text-white">
@@ -392,8 +389,8 @@
                 <span class="font-semibold text-sm block leading-none" id="scannerStatusText">Toca para escanear</span>
             </div>
             <div class="flex items-center gap-2">
-                <button id="switchCameraBtn" onclick="switchCamera()" class="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition hidden" title="Cambiar de Cámara">
-                    <iconify-icon icon="solar:camera-rotate-bold-duotone" width="20" class="text-white"></iconify-icon>
+                <button id="switchCameraBtn" onclick="switchCamera()" class="w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center transition hidden relative active:scale-95" title="Cambiar de Cámara">
+                    <iconify-icon icon="solar:camera-rotate-bold-duotone" width="16" class="text-white z-10"></iconify-icon>
                 </button>
                 <button id="torchBtn" onclick="toggleFlashlight()" class="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition hidden" title="Encender/Apagar Linterna">
                     <iconify-icon id="torchIcon" icon="solar:flashlight-bold-duotone" width="20" class="text-white"></iconify-icon>
@@ -407,11 +404,8 @@
         <div class="flex-1 relative flex items-center justify-center overflow-hidden bg-black p-4 cursor-pointer select-none" id="videoContainer" onclick="triggerTapToScan(event)">
             <video id="zxingVideo" class="w-full max-w-sm h-auto max-h-full object-cover rounded-2xl shadow-2xl" autoplay playsinline muted></video>
             
-            <!-- Visor decorativo de alta visibilidad -->
             <div class="absolute inset-0 pointer-events-none flex items-center justify-center p-6">
                 <div class="w-80 h-44 border-2 border-blue-500 rounded-md relative shadow-[0_0_50px_rgba(59,130,246,0.4)] bg-blue-500/5 transition-all" id="scanFrame">
-        
-                    <!-- Esquinas para alineación -->
                     <div class="absolute -top-0.5 -left-0.5 w-5 h-5 border-t-4 border-l-4 border-blue-400 rounded-tl-md"></div>
                     <div class="absolute -top-0.5 -right-0.5 w-5 h-5 border-t-4 border-r-4 border-blue-400 rounded-tr-md"></div>
                     <div class="absolute -bottom-0.5 -left-0.5 w-5 h-5 border-b-4 border-l-4 border-blue-400 rounded-bl-md"></div>
@@ -421,7 +415,7 @@
         </div>
 
         <div class="p-5 text-center text-zinc-400 text-xs bg-gradient-to-t from-black via-black/90 to-transparent flex flex-col items-center gap-2">
-            <p class="text-zinc-600 text-xs max-w-xs font-regular" id="scanInstructions">Toca la pantalla sobre el código de barras para escanear</p>
+            <p class="text-zinc-400 text-xs max-w-xs font-normal" id="scanInstructions">Toca la pantalla sobre el código de barras para escanear</p>
             <button onclick="closeScannerModal()" class="px-6 py-2 bg-zinc-800 text-zinc-200 font-medium rounded-xl border border-zinc-700 active:scale-95 transition">Cancelar</button>
         </div>
     </div>
@@ -449,7 +443,7 @@
     <div id="toastContainer" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-xs space-y-2 pointer-events-none px-4"></div>
 
     <script>
-        // --- ESTADO GLOBAL ---
+        // --- GLOBAL STATE ---
         const STORAGE_KEY = 'my_catalog_products_v2';
         const CATS_STORAGE_KEY = 'my_catalog_categories_v2';
         const CAMERA_STORAGE_KEY = 'my_catalog_selected_camera_id';
@@ -464,18 +458,17 @@
         let isTorchOn = false;
         let availableCameras = [];
         let currentCameraIndex = 0;
-        let currentZoom = 1.0;
         let currentPage = 1;
         const itemsPerPage = 5;
 
-        // Cargar datos al iniciar
+        // Initialization
         window.addEventListener('DOMContentLoaded', () => {
             applyInitialTheme();
             loadCategories();
             loadCatalogData();
             renderList();
 
-            // Prevenir advertencias de unhandledrejection esperadas cuando ZXing cierra el stream de video
+            // Prevent unhandled promise rejections from video stream stops
             window.addEventListener('unhandledrejection', (event) => {
                 const reason = event.reason;
                 const reasonStr = String(reason?.message || reason?.text || reason || '');
@@ -488,7 +481,7 @@
                 }
             });
 
-            // Cerrar dropdowns al hacer clic fuera
+            // Close dropdown menus when clicking outside
             document.addEventListener('click', (e) => {
                 const catDropdown = document.getElementById('categoryDropdown');
                 const catBtn = document.getElementById('categorySelectBtn');
@@ -537,14 +530,14 @@
 
             const emptyOption = document.createElement('div');
             emptyOption.className = 'custom-select-option px-3.5 py-2.5 hover:bg-zinc-800/80 cursor-pointer text-xs text-zinc-400 flex justify-between items-center transition';
-            emptyOption.innerHTML = `<span>Sin categoría</span><iconify-icon icon="solar:check-read-bold" width="14" class="cat-check text-blue-500 hidden" data-cat=""></iconify-icon>`;
+            emptyOption.innerHTML = '<span>Sin categoría</span><iconify-icon icon="solar:check-read-bold" width="14" class="cat-check text-blue-500 hidden" data-cat=""></iconify-icon>';
             emptyOption.onclick = () => selectCategory('');
             container.appendChild(emptyOption);
 
             categories.forEach(cat => {
                 const item = document.createElement('div');
                 item.className = 'custom-select-option px-3.5 py-2.5 hover:bg-zinc-800/80 cursor-pointer text-xs text-zinc-200 flex justify-between items-center transition';
-                item.innerHTML = `<span>${escapeHtml(cat)}</span><iconify-icon icon="solar:check-read-bold" width="14" class="cat-check text-blue-500 hidden" data-cat="${escapeHtml(cat)}"></iconify-icon>`;
+                item.innerHTML = '<span>' + escapeHtml(cat) + '</span><iconify-icon icon="solar:check-read-bold" width="14" class="cat-check text-blue-500 hidden" data-cat="' + escapeHtml(cat) + '"></iconify-icon>';
                 item.onclick = () => selectCategory(cat);
                 container.appendChild(item);
             });
@@ -672,10 +665,10 @@
             const savedTheme = localStorage.getItem('app_theme');
             if (savedTheme === 'dark') {
                 document.body.classList.remove('light-mode');
-                updateThemeUI(true);
+                updateThemeUI(false);
             } else {
                 document.body.classList.add('light-mode');
-                updateThemeUI(false);
+                updateThemeUI(true);
             }
         }
 
@@ -974,7 +967,6 @@
             if (statusText) statusText.textContent = "Toca para escanear";
             if (scanInst) scanInst.textContent = "Toca la pantalla sobre el código de barras para escanear";
 
-            // Inicializar ZXing
             if (!zxingCodeReader) {
                 const hints = new Map();
                 if (window.ZXing) {
@@ -994,7 +986,6 @@
                 zxingCodeReader = new ZXing.BrowserMultiFormatReader(hints);
             }
 
-            // Inicializar BarcodeDetector Nativo si está disponible
             if ('BarcodeDetector' in window) {
                 try {
                     nativeBarcodeDetector = new BarcodeDetector({
@@ -1008,51 +999,103 @@
             try {
                 const devices = await navigator.mediaDevices.enumerateDevices();
                 availableCameras = devices.filter(d => d.kind === 'videoinput');
-                
-                const switchBtn = document.getElementById('switchCameraBtn');
-                if (availableCameras.length > 1) {
-                    switchBtn.classList.remove('hidden');
+
+                const savedCamId = localStorage.getItem(CAMERA_STORAGE_KEY);
+                if (savedCamId && availableCameras.length > 0) {
+                    const idx = availableCameras.findIndex(c => c.deviceId === savedCamId);
+                    currentCameraIndex = idx !== -1 ? idx : 0;
                 } else {
-                    switchBtn.classList.add('hidden');
+                    currentCameraIndex = 0;
                 }
 
-                // Verificar preferencia guardada
-                const savedCameraId = localStorage.getItem(CAMERA_STORAGE_KEY);
-                let deviceIdToUse = null;
-
-                if (savedCameraId) {
-                    const savedIndex = availableCameras.findIndex(c => c.deviceId === savedCameraId);
-                    if (savedIndex !== -1) {
-                        currentCameraIndex = savedIndex;
-                        deviceIdToUse = savedCameraId;
-                    }
-                }
-
-                if (!deviceIdToUse && availableCameras.length > 0) {
-                    const backIndex = availableCameras.findIndex(c => 
-                        c.label.toLowerCase().includes('back') || 
-                        c.label.toLowerCase().includes('trasera') || 
-                        c.label.toLowerCase().includes('environment') ||
-                        c.label.toLowerCase().includes('main')
-                    );
-                    currentCameraIndex = (backIndex !== -1) ? backIndex : 0;
-                    deviceIdToUse = availableCameras[currentCameraIndex]?.deviceId;
-                }
-
-                startHDCameraStream(deviceIdToUse);
+                const selectedDeviceId = availableCameras[currentCameraIndex]?.deviceId || null;
+                await startHDCameraStream(selectedDeviceId);
             } catch (err) {
-                console.error("Error enumerando cámaras:", err);
-                startHDCameraStream(undefined);
+                console.error("Error al enumerar cámaras:", err);
+                await startHDCameraStream(null);
             }
+        }
+
+        function describeArc(x, y, radius, startAngle, endAngle) {
+            const startRad = (startAngle * Math.PI) / 180;
+            const endRad = (endAngle * Math.PI) / 180;
+            
+            const x1 = x + radius * Math.cos(startRad);
+            const y1 = y + radius * Math.sin(startRad);
+            const x2 = x + radius * Math.cos(endRad);
+            const y2 = y + radius * Math.sin(endRad);
+
+            const largeArcFlag = (endAngle - startAngle) <= 180 ? "0" : "1";
+
+            return [
+                "M", x1, y1,
+                "A", radius, radius, 0, largeArcFlag, 1, x2, y2
+            ].join(" ");
+        }
+
+        function updateCameraSwitchUI() {
+            const switchBtn = document.getElementById('switchCameraBtn');
+            if (!switchBtn) return;
+
+            const totalCams = availableCameras.length;
+            if (totalCams <= 1) {
+                switchBtn.classList.add('hidden');
+                return;
+            }
+            switchBtn.classList.remove('hidden');
+
+            let svgRing = switchBtn.querySelector('.cam-svg-ring');
+            if (!svgRing) {
+                svgRing = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svgRing.setAttribute('class', 'cam-svg-ring absolute inset-0 w-full h-full pointer-events-none');
+                svgRing.setAttribute('viewBox', '0 0 40 40');
+                switchBtn.appendChild(svgRing);
+            }
+            svgRing.innerHTML = '';
+
+            const activeCount = currentCameraIndex + 1;
+            const cx = 20, cy = 20, r = 16.5;
+            
+            const gapDegrees = totalCams > 1 ? (totalCams > 4 ? 14 : 20) : 0;
+            const segmentDegrees = (360 - (gapDegrees * totalCams)) / totalCams;
+            
+            const activeColor = '#60a5fa';
+            const inactiveColor = 'rgba(255, 255, 255, 0.2)';
+
+            let startAngle = -90;
+
+            for (let i = 0; i < totalCams; i++) {
+                const endAngle = startAngle + segmentDegrees;
+                const isPainted = (i < activeCount);
+                const strokeColor = isPainted ? activeColor : inactiveColor;
+                const strokeWidth = isPainted ? 3 : 2;
+
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', describeArc(cx, cy, r, startAngle, endAngle));
+                path.setAttribute('fill', 'none');
+                path.setAttribute('stroke', strokeColor);
+                path.setAttribute('stroke-width', strokeWidth.toString());
+                path.setAttribute('stroke-linecap', 'round');
+                if (isPainted) {
+                    path.style.filter = 'drop-shadow(0px 0px 5px rgba(96, 165, 250, 0.9))';
+                }
+                
+                svgRing.appendChild(path);
+
+                startAngle = endAngle + gapDegrees;
+            }
+
+            const camName = availableCameras[currentCameraIndex]?.label || `Cámara ${currentCameraIndex + 1}`;
+            switchBtn.setAttribute('title', `Cámara ${currentCameraIndex + 1} de ${totalCams}: ${camName}`);
         }
 
         async function startHDCameraStream(deviceId) {
             stopCurrentStream();
             isScanHandled = false;
+            updateCameraSwitchUI();
 
             const videoEl = document.getElementById('zxingVideo');
 
-            // Configuración flexible para evitar OverconstrainedError en celulares
             const videoConstraints = {
                 facingMode: { ideal: 'environment' },
                 width: { ideal: 1280 },
@@ -1066,7 +1109,6 @@
             try {
                 activeMediaStream = await navigator.mediaDevices.getUserMedia({ video: videoConstraints });
             } catch (err) {
-                console.warn("Fallo restricciones ideales de cámara, intentando modo por defecto...", err);
                 try {
                     activeMediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
                 } catch (err2) {
@@ -1082,7 +1124,6 @@
                 try {
                     await videoEl.play();
                 } catch (playErr) {
-                    // Suppress harmless browser AbortError when play() is interrupted by a stream update
                     const isInterrupted = playErr.name === 'AbortError' || String(playErr?.message || playErr).includes('interrupted');
                     if (!isInterrupted) {
                         throw playErr;
@@ -1115,7 +1156,6 @@
             const x = clientX - rect.left;
             const y = clientY - rect.top;
 
-            // Generar animación de gota de agua
             createWaterRipple(container, x, y);
 
             const statusText = document.getElementById('scannerStatusText');
@@ -1147,7 +1187,6 @@
 
             let scannedText = null;
 
-            // Intentar detectar
             const tryDetect = async () => {
                 if (nativeBarcodeDetector) {
                     try {
@@ -1175,7 +1214,6 @@
             if (scannedText) {
                 handleSuccessfulBarcodeScan(String(scannedText));
             } else {
-                // Realizar varios intentos rápidos durante 1.2s para asegurar captura
                 let attempts = 0;
                 const interval = setInterval(async () => {
                     attempts++;
@@ -1201,7 +1239,6 @@
             if (isScanHandled) return;
             isScanHandled = true;
 
-            // Feedback háptico/vibración si está disponible
             if (navigator.vibrate) navigator.vibrate([80, 50, 80]);
             
             const frame = document.getElementById('scanFrame');
@@ -1231,16 +1268,6 @@
                     track.applyConstraints({ advanced: [{ focusMode: 'continuous' }] }).catch(() => {});
                 }
 
-                const zoomContainer = document.getElementById('zoomControlsContainer');
-                if (zoomContainer) {
-                    if (capabilities.zoom) {
-                        zoomContainer.classList.remove('hidden');
-                        setZoom(1.0);
-                    } else {
-                        zoomContainer.classList.add('hidden');
-                    }
-                }
-
                 const torchBtn = document.getElementById('torchBtn');
                 if (torchBtn) {
                     if (capabilities.torch) {
@@ -1251,30 +1278,6 @@
                 }
             } catch (e) {
                 console.log("Error configurando características de cámara", e);
-            }
-        }
-
-        async function setZoom(zoomValue) {
-            try {
-                const videoEl = document.getElementById('zxingVideo');
-                const stream = videoEl?.srcObject || activeMediaStream;
-                if (!stream) return;
-                const track = stream.getVideoTracks()[0];
-                if (track && track.getCapabilities && track.getCapabilities().zoom) {
-                    await track.applyConstraints({ advanced: [{ zoom: zoomValue }] });
-                    currentZoom = zoomValue;
-
-                    document.querySelectorAll('.zoom-btn').forEach(btn => {
-                        const val = parseFloat(btn.getAttribute('data-zoom'));
-                        if (val === zoomValue) {
-                            btn.className = 'zoom-btn px-2.5 py-1 rounded-full text-xs font-bold bg-blue-600 text-white transition';
-                        } else {
-                            btn.className = 'zoom-btn px-2.5 py-1 rounded-full text-xs font-bold bg-white/10 text-zinc-300 hover:bg-white/20 transition';
-                        }
-                    });
-                }
-            } catch (err) {
-                console.error("Error ajustando zoom", err);
             }
         }
 
@@ -1343,9 +1346,6 @@
 
             const torchBtn = document.getElementById('torchBtn');
             if (torchBtn) torchBtn.classList.add('hidden');
-
-            const zoomContainer = document.getElementById('zoomControlsContainer');
-            if (zoomContainer) zoomContainer.classList.add('hidden');
 
             const frame = document.getElementById('scanFrame');
             if (frame) {
